@@ -296,6 +296,7 @@ function solution6(A6) {
 
   let minDifference = Number.MAX_VALUE;
   let untornTapeValue = 0;
+  // Comment
    
   //Calculate the value of the tape
   for (let i = 0; i < A6.length; i++) {
