@@ -323,3 +323,77 @@ function solution6(A6) {
 }
 
 console.log("The tape Equilibrium is at :" + solution6([3,1,2,4,3]))
+
+
+// FROG RIVER ONE
+function solution7(K7, A7) {
+
+  /*
+  K = The number of positions for a bridge to be formedwith
+  leaves to cross the river.
+
+  A = The array containing the position the leaf will fall in
+  at a time in seconds
+
+  Steps:
+  1. Create an array s with x values. Each value in s is a position in 
+    the lake.
+  2. Itterate through the time array. when a leaf is not in position, subtract
+    1 from the brigde parts
+  3. When the remaining bridge parts = 0, we return the amount of time
+
+  */
+
+  let s = new Array(x);
+  let remainingDistance = x
+
+  for (let i = 0; i < A7.length; i++) {
+
+    let currentLeafPstn = A7[i];
+
+    if (s[currentLeafPstn] != 1 ) {
+      s[currentLeafPstn] = 1;
+      remainingDistance = --i;
+    }
+    if (remainingDistance == 0) {
+      return i
+    }
+
+    return -1
+  }
+}
+
+// console.log("The frog river 1 :" + solution7([3,1,2,4,3]))
+
+
+// PERM CHECK 1
+function solution8(A8) {
+
+  /*
+  A - array we need to check if it is a permutation or not
+  the numbers contained in A should be from 1 to A.length
+
+  Sort the array and if one is skipped, its not a permuttion
+
+   Steps:
+  1. sort array
+  2. check if all numbers are consecutive
+
+  */
+  A8.sort(function (a,b) {return a - b});
+
+  for (let i = 0; i < A8.length; i++) {
+    if (A8[i != i + 1]) {
+      return 0;
+    }
+
+    return 1
+
+  }
+
+}
+
+console.log("The perm check for [3,1,2,4,3] will return  :" + solution8([3,1,2,4,3]))
+
+
+// PERM CHECK 2
