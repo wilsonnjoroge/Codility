@@ -64,8 +64,8 @@ function solution (N) {
   
 };
 
-console.log('Binary Gap of 9 = ' + solution(9));     // Output: 2
-console.log('Binary Gap of 1041 = ' + solution(1041));  // Output: 5
+console.log('-> BINARY GAPS: Binary Gap of 9 = ' + solution(9));     // Output: 2
+console.log('-> BINARY GAPS: Binary Gap of 1041 = ' + solution(1041));  // Output: 5
 
 
 //  2. CYCLIC ROTATION (Method 1)
@@ -134,7 +134,7 @@ function solution1 (A1, K1) {
 
 }
 
-console.log('Method 1: Rotating [1,2,3,4,5] to the right 3 times = ' + solution1([1,2,3,4,5], 3));
+console.log('-> CYCLIC ROTATION: Method 1: Rotating [1,2,3,4,5] to the right 3 times = ' + solution1([1,2,3,4,5], 3));
   
     
 
@@ -179,7 +179,7 @@ function solution2 (A2, K2) {
 
 }
 
-console.log('Method 2: Rotating [4,6,2,4,5] to the right 3 times = ' + solution2([4,6,2,4,5], 3));
+console.log('-> CYCLIC ROTATION: Method 2: Rotating [4,6,2,4,5] to the right 3 times = ' + solution2([4,6,2,4,5], 3));
 
 
 // 4. ODD OCCURENCES IN AN ARRAY
@@ -225,7 +225,7 @@ function solution3 (A3) {
 
 }
 
-console.log("Odd occurences in array [9,3,9,3,9,7,9] = " + solution3([9,3,9,3,9,7,9]))
+console.log("-> ODD OCCURENCES IN AN ARRAY:  [9,3,9,3,9,7,9] = " + solution3([9,3,9,3,9,7,9]))
 
 
 // 5. FROG JUMP
@@ -260,7 +260,7 @@ let jumps = Math.floor((y - x) / d);
 }
 
 // will output 3
-console.log("The number of jumps will be : " + solution4(10, 85, 30));
+console.log("-> FROG JUMP: The number of jumps will be : " + solution4(10, 85, 30));
 
 
 
@@ -278,7 +278,7 @@ function solution5(A5) {
   return sum - trueSum;
 }
 
-console.log("The missing element in the array [3,1,2,4,5] is : " + solution5([3, 1, 2, 5]));
+console.log("-> PERM MISSING ELEMENT: The missing element in the array [3,1,2,4,5] is : " + solution5([3, 1, 2, 5]));
 
 
 // 7. TAPE EQUILIBRIUM
@@ -322,4 +322,243 @@ function solution6(A6) {
 
 }
 
-console.log("The tape Equilibrium is at :" + solution6([3,1,2,4,3]))
+console.log("-> TAPE EQUILIBRIUM: The tape Equilibrium is at :" + solution6([3,1,2,4,3]))
+
+
+// FROG RIVER ONE
+function solution7(K7, A7) {
+
+  /*
+  K = The number of positions for a bridge to be formedwith
+  leaves to cross the river.
+
+  A = The array containing the position the leaf will fall in
+  at a time in seconds
+
+  Steps:
+  1. Create an array s with x values. Each value in s is a position in 
+    the lake.
+  2. Itterate through the time array. when a leaf is not in position, subtract
+    1 from the brigde parts
+  3. When the remaining bridge parts = 0, we return the amount of time
+
+  */
+
+  let s = new Array(x);
+  let remainingDistance = x
+
+  for (let i = 0; i < A7.length; i++) {
+
+    let currentLeafPstn = A7[i];
+
+    if (s[currentLeafPstn] != 1 ) {
+      s[currentLeafPstn] = 1;
+      remainingDistance = --i;
+    }
+    if (remainingDistance == 0) {
+      return i
+    }
+
+    return -1
+  }
+}
+
+// console.log("The frog river 1 :" + solution7([3,1,2,4,3]))
+console.log('-> FROG RIVER ONE')
+
+
+// PERM CHECK 1
+function solution8(A8) {
+
+  /*
+  A - array we need to check if it is a permutation or not
+  the numbers contained in A should be from 1 to A.length
+
+  Sort the array and if one is skipped, its not a permuttion
+
+   Steps:
+  1. sort array
+  2. check if all numbers are consecutive
+
+  */
+
+  A8.sort(function (a,b) {return a - b});
+
+  for (let i = 0; i < A8.length; i++) {
+    if (A8[i != i + 1]) {
+      return 0;
+    }
+
+    return 1
+
+  }
+
+}
+
+console.log("-> PERM CHECK 1: The perm check for [3,1,2,4,3] will return  :" + solution8([3,1,2,4,3]))
+
+
+// MAX COUNTERS
+
+function solution9(A9, N9) {
+
+  // time complexity:O(N + M)
+
+  let counter = new Array(N9).fill(0);
+  let maxCounter = 0;
+
+  function setToMax() {
+    for (let i = 0; i < counter.length; i++) {
+      counter[i] = maxCounter;
+    }
+  }
+
+  for (let i = 0; i < N9; i++) {
+    if (A9[i] > counter.length) {
+      setToMax();
+    } else {
+      counter[A9[i] - 1]++;
+      maxCounter = Math.max(maxCounter, counter[A9[i] - 1]);
+    }
+  }
+
+  return maxCounter;
+}
+
+console.log('-> MAX COUNTERS')
+
+
+// MISSING NUMBERS
+function solution10(A10) {
+
+  let counter = 0;
+
+  A10.sort(function (a, b) {
+    return a - b 
+  });
+
+  for (let i = 0; i <A10.length; i++) {
+    if(A10[i] > 0) {
+      if(A10[i] != counter) {
+        counter++
+      };
+      if(A10[i] == counter) {
+        continue;
+      }
+      return counter;
+    }
+  }
+
+  counter++
+  return counter;
+}
+
+console.log("-> The missing number on [1, 2, 3] is: " + solution10([1, 2, 3]));
+
+
+// PASSING CARS
+function solution11(A11) {
+
+  let carsTravellingEast = 0;
+  let passedCars = 0;
+
+  for (let i = 0; i < A11.length; i++) {
+    if(passedCars > 1000000000){
+      return -1
+    };
+    if(A11[i] == 0) {
+      carsTravellingEast++
+    };
+    if(A11[i] == 1) {
+      passedCars += carsTravellingEast
+    };
+  }
+
+  return passedCars;
+}
+
+console.log('-> PASSING CARS')
+
+
+// COUNTING DIVS
+function solution12(A12, B12, K12) {
+
+  let offset =  0;
+
+  // O(1)
+  if(A12%K12){
+    offset = 1
+  }
+
+  return parseInt(B12/K12) - parseInt(A12/K12) + offset
+
+}
+
+console.log('-> COUNTING DIVS')
+
+
+// DISTINCT VALUE
+function solution13(A13) {
+
+  let distinctNumbers = {};
+  let distinctNumberCounter = 0;
+
+  for(let i = 0; i < A13.length; i++) {
+    let currentNumber = A13[i];
+
+    if(distinctNumbers[currentNumber] != 1) {
+      distinctNumbers[currentNumber] = 1;
+      distinctNumberCounter++;
+    }
+  }
+
+  // O(N)
+  return distinctNumberCounter
+}
+
+console.log('-> DISTINCT VALUE')
+
+
+// TRIANGLES
+function solution14(A14) {
+
+  /*
+  Steps:
+    1. Sort the array by its values
+    2. Itterate through the array - check if conditions for triangle are met
+
+  */
+
+    function isTriangular (P, Q, R){
+      if (A14[P] + A14[Q] > A14[R] &&
+          A14[Q] + A14[R] > A14[P] &&
+          A14[R] + A14[P] > A14[Q]) 
+          {
+            return true;
+          }
+          return false;
+    }
+
+    // Sort from smallest to largest
+    //O(NlogN)
+    A14.sort(function (a, b) {
+      return a-b
+    })
+
+    //O(N^3)
+    for (let curP = 0; curP < A14.length - 2; curP++) {
+      for (let curQ = curP + 1; curQ < A14.length - 1; curQ++) {
+        for (let curR = curQ + 1; curR < A14.length; curR++) {
+          if (isTriangular(curP, curQ, curR)) {
+            return 1
+          }
+        }
+      }
+    }
+
+    //O(NlogN)
+    return 0
+
+}
+
+console.log('-> TRIANGLES')
